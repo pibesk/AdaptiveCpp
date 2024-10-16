@@ -60,6 +60,13 @@ jobs:
         .\bootstrap.bat clang
         .\b2.exe --with-context --with-fiber --with-atomic --with-filesystem --with-test toolset=clang address-model=64 variant=release --build-type=complete stage
 
+    - name: List Env
+      shell: powershell
+      run: |
+        $env:PATH = "$env:GITHUB_WORKSPACE\llvm\bin;$env:PATH"
+        $env:PATH = "$env:GITHUB_WORKSPACE\ninja_install;$env:PATH"
+        Get-ChildItem env:
+
     - name: Build AdaptiveCpp
       shell: powershell
       run: |
