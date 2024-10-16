@@ -77,7 +77,7 @@ jobs:
       with:
         name: dist-without-markdown
         path: |
-          $env:GITHUB_WORKSPACE/acpp_install
+          $env:GITHUB_WORKSPACE\acpp_install
     - name: Build and run CPU tests
       shell: powershell
       run: |
