@@ -67,7 +67,7 @@ jobs:
         $env:PATH = "$env:GITHUB_WORKSPACE\ninja_install;$env:PATH"
         Get-ChildItem env:
         $env:PATH
-        cmake -v
+        cmake --version
 
     - name: Build AdaptiveCpp
       shell: powershell
