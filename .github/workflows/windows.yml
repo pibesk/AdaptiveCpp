@@ -78,3 +78,24 @@ jobs:
         name: acpp_install
         path: |
           acpp_install
+          
+    - name: Build CPU tests
+      shell: powershell
+      run: |
+        $env:PATH = "$env:GITHUB_WORKSPACE\llvm\bin;$env:PATH"
+        $env:PATH = "$env:GITHUB_WORKSPACE\ninja_install;$env:PATH"
+        $env:PATH = "$env:GITHUB_WORKSPACE\acpp_install\bin;$env:PATH"
+
+        cd $env:GITHUB_WORKSPACE\tests
+        md build
+        cd build
+        cmake .. -G Ninja -DCMAKE_CXX_COMPILER=clang++ -DACPP_TARGETS=omp -DBOOST_ROOT="$env:GITHUB_WORKSPACE/boost_1_81_0" -DBoost_COMPILER=-clang17 -DBoost_ARCHITECTURE=-x64 -DAdaptiveCpp_DIR="$env:GITHUB_WORKSPACE\acpp_install\lib\cmake\AdaptiveCpp"
+        ninja
+        
+    - name: Archive production artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: tests
+        path: |
+          tests
+              
